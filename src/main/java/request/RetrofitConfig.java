@@ -19,7 +19,8 @@ public class RetrofitConfig {
                 .create(clientClass);
     }
 
-    public static <T> T execute(Call<T> call) throws IOException {
+    @SneakyThrows
+    public static <T> T execute(Call<T> call){
         Response<T> response = call.execute();
         if (response.isSuccessful()) return response.body();
         else {
