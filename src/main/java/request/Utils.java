@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import lombok.SneakyThrows;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import static request.RetrofitConfig.createClient;
 import static request.RetrofitConfig.execute;
@@ -43,13 +45,8 @@ public class Utils {
     }
 
     public static Integer getLatestPost(List<Post> posts){
-
-        Integer postId = 0;
-
-        for (Post post : posts){
-            if(post.getId() > postId) postId = post.getId();
-        }
-        return postId;
+        Post latestPost = Collections.max(posts, Comparator.comparing(Post::getId));
+        return latestPost.getId();
 
     }
 

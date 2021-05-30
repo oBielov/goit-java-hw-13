@@ -21,7 +21,7 @@ public class Main {
         List<User> allUsers = Utils.getAllUsers();
         System.out.println(allUsers);
 
-        Utils.commentsToJson(2);
+        Utils.commentsToJson(10);
 
         List<Todos> openTodos = Utils.getOpenTodos(1);
         System.out.println(openTodos);
