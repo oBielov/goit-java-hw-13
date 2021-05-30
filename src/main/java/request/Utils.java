@@ -2,11 +2,9 @@ package request;
 
 import com.google.gson.Gson;
 import lombok.SneakyThrows;
-
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
-
 import static request.RetrofitConfig.createClient;
 import static request.RetrofitConfig.execute;
 
@@ -80,6 +78,31 @@ public class Utils {
 
         return openTodos;
     }
+
+    public static List<User> getUserByName(String userName){
+        return execute(client.getUserByName(userName));
+    }
+
+    public static User createUser(){
+        User newUser = Utils.CreateNewUser();
+        return execute(client.userCreate(newUser));
+    }
+
+    public static User updateUser(Integer userId){
+        User userToUpdate = execute(client.getUserById(userId));
+        return execute(client.userUpdate(userId, userToUpdate));
+    }
+
+    public static void deleteUser(Integer userId){
+        execute(client.userDelete(userId));
+        System.out.println("User has been deleted");
+    }
+
+    public static List<User> getAllUsers(){
+        return execute(client.getUsers());
+    }
+
+
 
 
 

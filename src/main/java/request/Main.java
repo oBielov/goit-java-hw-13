@@ -2,33 +2,23 @@ package request;
 
 import lombok.SneakyThrows;
 import java.util.List;
-import static request.RetrofitConfig.createClient;
-import static request.RetrofitConfig.execute;
 
 public class Main {
     @SneakyThrows
     public static void main(String[] args){
-        RetrofitClient client = createClient("http://jsonplaceholder.typicode.com",
-                RetrofitClient.class);
 
-        List<User> userByName = execute(client.getUserByName("Bret"));
+        List<User> userByName = Utils.getUserByName("Bret");
         System.out.println(userByName);
 
-        User newUser = Utils.CreateNewUser();
+        User newUser = Utils.createUser();
+        System.out.println(newUser);
 
-        User createUser = execute(client.userCreate(newUser));
-        System.out.println(createUser);
-
-        User userToUpdate = execute(client.getUserById(1));
-        System.out.println(userToUpdate);
-
-        execute(client.userDelete(1));
-        System.out.println("User deleted successfully");
-
-        User updateUser = execute(client.userUpdate(1, userToUpdate));
+        User updateUser = Utils.updateUser(1);
         System.out.println(updateUser);
 
-        List<User> allUsers = execute(client.getUsers());
+        Utils.deleteUser(1);
+
+        List<User> allUsers = Utils.getAllUsers();
         System.out.println(allUsers);
 
         Utils.commentsToJson(2);
