@@ -10,7 +10,7 @@ import static request.RetrofitConfig.execute;
 
 public class Utils {
 
-    private static final String FILEPATH = "src/main/resources/";
+    private static final String FILEPATH = "src/main/";
     private static final RetrofitClient client = createClient("http://jsonplaceholder.typicode.com",
             RetrofitClient.class);
 
@@ -64,8 +64,10 @@ public class Utils {
         for (Comments comment : comments){
             commentBodies.add(comment.getBody());
         }
-        gson.toJson(commentBodies, new FileWriter(FILEPATH + "user-" + userId + "-post-" + latestPostNumber
-                                                  + "-comments.json"));
+        try(FileWriter fileWriter = new FileWriter(FILEPATH + "user-" + userId + "-post-" + latestPostNumber
+                + "-comments.json")){
+            gson.toJson(commentBodies, fileWriter);
+        }
 
     }
 
