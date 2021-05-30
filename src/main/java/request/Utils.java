@@ -45,9 +45,7 @@ public class Utils {
     }
 
     public static Integer getLatestPost(List<Post> posts){
-        Post latestPost = Collections.max(posts, Comparator.comparing(Post::getId));
-        return latestPost.getId();
-
+        return Collections.max(posts, Comparator.comparing(Post::getId)).getId();
     }
 
     @SneakyThrows
