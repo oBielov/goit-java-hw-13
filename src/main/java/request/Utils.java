@@ -1,6 +1,7 @@
 package request;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import lombok.SneakyThrows;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ public class Utils {
     @SneakyThrows
     public static void commentsToJson(Integer userId){
 
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         List<Post> userPosts = execute(client.getUserPosts(userId));
         Integer latestPostNumber = getLatestPost(userPosts);
         List<Comments> comments = execute(client.getComments(latestPostNumber));
