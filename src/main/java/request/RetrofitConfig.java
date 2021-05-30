@@ -22,7 +22,11 @@ public class RetrofitConfig {
     @SneakyThrows
     public static <T> T execute(Call<T> call){
         Response<T> response = call.execute();
-        if (response.isSuccessful()) return response.body();
+        if (response.isSuccessful()){
+            int responseCode = response.code();
+            System.out.println("Response code: " + responseCode);
+            return response.body();
+        }
         else {
             String errorMessage = "HTTP code : " + response.code() + " -> " + response.errorBody().string();
             System.out.println(errorMessage);

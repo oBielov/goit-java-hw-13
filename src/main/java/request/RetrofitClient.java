@@ -32,4 +32,13 @@ public interface RetrofitClient {
     @Headers({"ContentType-Type: application/json"})
     Call<List<User>> getUserByName(@Query("username") String userName);
 
+    @GET("/users/{id}/posts")
+    @Headers({"ContentType-Type: application/json"})
+    Call<List<Post>> getUserPosts(@Path("id") Integer id);
+
+    @GET("/posts/{id}/comments")
+    @Headers({"ContentType-Type: application/json"})
+    Call<List<Comments>> getComments(@Path("id") Integer id);
+
+
 }

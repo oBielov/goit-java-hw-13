@@ -1,6 +1,15 @@
 package request;
 
+import com.google.gson.Gson;
+import lombok.SneakyThrows;
+
+import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Utils {
+
+    private final String FILEPATH = "src/main/resources/";
 
 
     public static User CreateNewUser() {
@@ -27,6 +36,30 @@ public class Utils {
                         .bs("CutCutChopChop").build())
                 .build();
 
+
+    }
+
+    public static Integer getLatestPost(List<Post> posts){
+
+        Integer postId = 0;
+
+        for (Post post : posts){
+            if(post.getId() > postId) postId = post.getId();
+        }
+        return postId;
+
+    }
+
+    @SneakyThrows
+    public static void commentsToJson(String filepath, List<Comments> comments){
+
+        Gson gson = new Gson();
+        List<String> commentBodies = new ArrayList<>();
+        for (Comments comment : comments){
+            commentBodies.add(comment.getBody());
+        }
+        System.out.println(commentBodies);
+        gson.toJson(commentBodies, new FileWriter(filepath));
 
     }
 
