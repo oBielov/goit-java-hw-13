@@ -7,9 +7,14 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import static request.RetrofitConfig.createClient;
+import static request.RetrofitConfig.execute;
+
 public class Utils {
 
-    private final String FILEPATH = "src/main/resources/";
+    private static final String FILEPATH = "src/main/resources/";
+    private static final RetrofitClient client = createClient("http://jsonplaceholder.typicode.com",
+            RetrofitClient.class);
 
 
     public static User CreateNewUser() {
@@ -51,16 +56,31 @@ public class Utils {
     }
 
     @SneakyThrows
-    public static void commentsToJson(String filepath, List<Comments> comments){
+    public static void commentsToJson(Integer userId){
 
         Gson gson = new Gson();
+        List<Post> userPosts = execute(client.getUserPosts(userId));
+        Integer latestPostNumber = getLatestPost(userPosts);
+        List<Comments> comments = execute(client.getComments(latestPostNumber));
         List<String> commentBodies = new ArrayList<>();
         for (Comments comment : comments){
             commentBodies.add(comment.getBody());
         }
-        System.out.println(commentBodies);
-        gson.toJson(commentBodies, new FileWriter(filepath));
+        gson.toJson(commentBodies, new FileWriter(FILEPATH + "user-" + userId + "-post-" + latestPostNumber
+                                                  + "-comments.json"));
 
     }
+
+    public static List<Todos> getOpenTodos(Integer userId){
+
+        List<Todos> allTodos = execute(client.getTodos(userId));
+        List<Todos> openTodos = new ArrayList<>();
+
+        for (Todos todo : allTodos) if (!todo.getCompleted()) openTodos.add(todo);
+
+        return openTodos;
+    }
+
+
 
 }

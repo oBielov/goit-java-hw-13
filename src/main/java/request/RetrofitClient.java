@@ -40,5 +40,10 @@ public interface RetrofitClient {
     @Headers({"ContentType-Type: application/json"})
     Call<List<Comments>> getComments(@Path("id") Integer id);
 
+    @GET("/users/{id}/todos")
+    @Headers({"ContentType-Type: application/json"})
+    Call<List<Todos>> getTodos(@Path("id") Integer id);
+
+
 
 }

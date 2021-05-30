@@ -7,8 +7,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import java.io.IOException;
-
 public class RetrofitConfig {
     public static <T> T createClient(String apiUrl, Class<T> clientClass) {
         return new Retrofit.Builder()

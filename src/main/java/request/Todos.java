@@ -3,9 +3,8 @@ package request;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
-
 @Data
-public class Post {
+public class Todos {
 
     @SerializedName("userId")
     public Integer userId;
@@ -16,7 +15,7 @@ public class Post {
     @SerializedName("title")
     public String title;
 
-    @SerializedName("body")
-    public String body;
+    @SerializedName("completed")
+    public Boolean completed;
 
 }
